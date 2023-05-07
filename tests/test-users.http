@@ -1,0 +1,25 @@
+### POST - register new user
+POST http://localhost:3000/api/user/register HTTP/1.1
+Content-Type: "application/json"
+
+{
+    "name": "Grzegorz",
+    "lastName": "Szewczyk",
+    "email": "grzegorzszewczyk@gmail.com",
+    "password": "zaq1@WSX"
+}
+
+### GET - confirm account 
+GET http://localhost:3000/api/user/confirm/{token} HTTP/1.1
+
+### POST - login and return token
+POST http://localhost:3000/api/user/login HTTP/1.1
+Authorization: Bearer {token}
+
+{
+    "email": "grzegorzszewczyk@gmail.com",
+    "password": "zaq1@WSX"
+}
+
+### GET - get all users
+GET http://localhost:3000/api/user HTTP/1.1

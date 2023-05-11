@@ -7,6 +7,11 @@ const filtersRouter = require("./app/routers/filtersRouter")
 const getFilesRouter = require("./app/routers/getFilesRouter")
 const usersRouter = require("./app/routers/usersRouter")
 
+const ip = Object.values(require('os').networkInterfaces())
+                        .reduce((r, list) => r.concat(list.reduce((rr, i) => rr.concat(i.family === 'IPv4' && !i.internal && i.address || []), [])), [])
+
+console.log(ip);
+
 http.createServer(async (req, res) => {
 
     //images router

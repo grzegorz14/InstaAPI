@@ -14,6 +14,7 @@ module.exports = {
                 encryptedPassword)
             
             users.push(newUser)
+            console.log("New user registers: " + registrationData.email)
 
             let token = jwt.sign(
                 {
@@ -21,7 +22,7 @@ module.exports = {
                     email: newUser.email
                 },
                 process.env.JWT_SECRET, 
-                { expiresIn: "1g" } 
+                { expiresIn: "1h" } 
             )
 
             resolve(token)
@@ -34,8 +35,8 @@ module.exports = {
                 process.env.JWT_SECRET, 
                 (err, result) => { return { err: err, result: result }})
 
-            if (decoded.err != "null") {
-                reject("Link to activate account has expired. Activation unsucessfull.")
+            if (decoded.err != "null" && decoded.err != null) {
+                reject("Activation unsuccessfull. \n" + JSON.stringify(decoded, null, 2))
             }
             else {
                 let userToConfirm = users.filter(u => u.email == decoded.result.email)[0]
@@ -74,6 +75,23 @@ module.exports = {
     getAllUsers: () => {
         return new Promise((resolve, reject) => {
             resolve(users)    
+        })
+    },
+    authorizeUser: (token) => {
+        return new Promise(async (resolve, reject) => {
+            let decoded = await jwt.verify(
+                token, 
+                process.env.JWT_SECRET, 
+                (err, result) => { return { err: err, result: result }})
+
+            if (decoded.err != "null" && decoded.err != null) {
+                console.log("Authorization failed.")
+                reject(-1)
+            }
+            else {
+                console.log("Authorization succeded.")
+                resolve(decoded.result.email)
+            }
         })
     }
 }

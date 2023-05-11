@@ -14,7 +14,7 @@ GET http://localhost:3000/api/user/confirm/{token} HTTP/1.1
 
 ### POST - login and return token
 POST http://localhost:3000/api/user/login HTTP/1.1
-Authorization: Bearer {token}
+Content-Type: "application/json"
 
 {
     "email": "grzegorzszewczyk@gmail.com",
@@ -23,3 +23,7 @@ Authorization: Bearer {token}
 
 ### GET - get all users
 GET http://localhost:3000/api/user HTTP/1.1
+
+### POST - auth user by token
+POST http://localhost:3000/api/user/auth HTTP/1.1
+Authorization: eyJhbGciOiJzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4MzgxODMxODAyMiwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4MzgxODMyMCwiZXhwIjoxNjgzOTA0NzIwfQ.9UNlzXM21hdJe6mXUW-amslp2kxINRGmGPBiC4tubTM

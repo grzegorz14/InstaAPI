@@ -3,7 +3,7 @@ POST http://localhost:3000/api/user/register HTTP/1.1
 Content-Type: "application/json"
 
 {
-    "name": "Grzegorz",
+    "firstName": "Grzegorz",
     "lastName": "Szewczyk",
     "email": "grzegorzszewczyk@gmail.com",
     "password": "zaq1@WSX"
@@ -21,9 +21,28 @@ Content-Type: "application/json"
     "password": "zaq1@WSX"
 }
 
+### GET - logout
+GET http://localhost:3000/api/user/logout HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzcxMzYzMCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzcxNSwiZXhwIjoxNjg0MjIwMTE1fQ.av7btoL66ePgxCiD57iwnCuXbEhsxyP-Os1sOw903bY
+
 ### GET - get all users
 GET http://localhost:3000/api/user HTTP/1.1
 
 ### POST - auth user by token
 POST http://localhost:3000/api/user/auth HTTP/1.1
-Authorization: eyJhbGciOiJzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4MzgxODMxODAyMiwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4MzgxODMyMCwiZXhwIjoxNjgzOTA0NzIwfQ.9UNlzXM21hdJe6mXUW-amslp2kxINRGmGPBiC4tubTM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzcxMzYzMCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzc4NCwiZXhwIjoxNjg0MjIwMTg0fQ.9dvTEtOmd_Pkb_ziVWDrMFUMO0FbZR_a0gH0EIKHaz0
+
+### GET - get profile by token
+GET http://localhost:3000/api/user/profile HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzg5Njg3OCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzg5OCwiZXhwIjoxNjg0MjIwMjk4fQ.fCwDZrP8oBzYFk7UpoCU9IlzOCZsXwu_hQ-c6ZCaE4g
+
+### PATCH - update profile
+PATCH http://localhost:3000/api/user/profile HTTP/1.1
+Content-Type: "application/json"
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzk0MDgxMSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzk0MywiZXhwIjoxNjg0MjIwMzQzfQ.LUwV7dbWpJWUoJzJrFuszMAeNBg66pYt9qvT3B66wOM
+
+{
+    "firstName": "Grzesiu",
+    "lastName": "Siefczyk",
+    "email": "siefczyk_grzesiu@gmail.com"
+}

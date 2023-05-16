@@ -1,4 +1,4 @@
-const { User, users } = require("../models/user")
+const { User, users, loggedUserTokens } = require("../models/user")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 require('dotenv').config({ path: "./../../hidden.env" })
@@ -8,7 +8,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let encryptedPassword = await bcrypt.hash(registrationData.password, 10)
             let newUser = new User(
-                registrationData.name,
+                registrationData.firstName,
                 registrationData.lastName,
                 registrationData.email,
                 encryptedPassword)
@@ -62,13 +62,45 @@ module.exports = {
                     process.env.JWT_SECRET, 
                     { expiresIn: "1d" } 
                 )
+
+                loggedUserTokens.push(authorizationToken)
                 resolve(authorizationToken)
+            }
+        })
+    },
+    logoutUser: (token) => {
+        return new Promise((resolve, reject) => {
+            let indexToDelete = loggedUserTokens.findIndex(t => t == token)
+            if (indexToDelete >= 0) {
+                loggedUserTokens.splice(indexToDelete, 1)
+                resolve("User is logged out.")
+            }
+            else {
+                reject("User was already logged out.")
             }
         })
     },
     getUserByEmail: (email) => {
         return new Promise((resolve, reject) => {
             if (users.filter(u => u.email == email).length == 0) reject("User with given email not found")
+            else resolve(users.filter(u => u.email == email)[0])
+        })
+    },
+    getUserByToken: (token) => {
+        return new Promise(async (resolve, reject) => {
+            let decoded = await jwt.verify(
+                token, 
+                process.env.JWT_SECRET, 
+                (err, result) => { return { err: err, result: result }})
+
+            if (decoded.err != "null" && decoded.err != null) {
+                reject("User with given token not found")
+                return
+            }
+
+            let email = decoded.result.email
+
+            if (users.filter(u => u.email == email).length == 0) reject("User with given token not found")
             else resolve(users.filter(u => u.email == email)[0])
         })
     },
@@ -79,6 +111,12 @@ module.exports = {
     },
     authorizeUser: (token) => {
         return new Promise(async (resolve, reject) => {
+            if (!loggedUserTokens.includes(token)) {
+                console.log("Authorization failed. User is logged out.")
+                reject(-1)
+                return
+            }
+
             let decoded = await jwt.verify(
                 token, 
                 process.env.JWT_SECRET, 
@@ -91,6 +129,18 @@ module.exports = {
             else {
                 console.log("Authorization succeded.")
                 resolve(decoded.result.email)
+            }
+        })
+    },
+    updateUser: (id, newEmail, newFirstName, newLastName) => {
+        return new Promise(async (resolve, reject) => {
+            let indexToUpdate = users.findIndex(u => u.id == id)
+            if (indexToUpdate >= 0) {
+                users[indexToUpdate].updateData(newEmail, newFirstName, newLastName)
+                resolve(users[indexToUpdate])
+            }
+            else {
+                reject("No user found with given id.")
             }
         })
     }

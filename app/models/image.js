@@ -1,5 +1,6 @@
 const images = []
 
+// Image class represents Post class in mobile app
 class Image {
     constructor(album, orginalName, url, dateNow) {
         this.id = dateNow

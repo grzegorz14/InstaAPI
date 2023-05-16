@@ -1,14 +1,22 @@
 const users = []
+const loggedUserTokens = []
 
 class User {
-        constructor(name, lastName, email, encryptedPassword) {
+    constructor(firstName, lastName, email, encryptedPassword) {
         this.id = Date.now()
-        this.name = name
+        this.firstName = firstName
         this.lastName = lastName
         this.email = email
         this.confirmed = false
         this.password = encryptedPassword
+        this.profilePhoto = null
+    }
+
+    updateData(email, firstName, lastName) {
+        this.email = email
+        this.firstName = firstName
+        this.lastName = lastName
     }
 }
 
-module.exports = { User, users }
+module.exports = { User, users, loggedUserTokens }

@@ -13,6 +13,7 @@ const router = async (req, res) => {
             res.end(JSON.stringify(
                 {
                     confirmLink: `http://${ip}:3000/api/user/confirm/${registrationToken}`,
+                    token: registrationToken,
                     timeLimit: "Warning: link is active only for 1 hour!"
                 },
                 null,
@@ -28,8 +29,14 @@ const router = async (req, res) => {
         try {
             const token = req.url.split("/").pop()
             const confirmedUser = await usersController.confirmUserByToken(token)
+            const message = confirmedUser.confirmed == true ? "Account is confirmed" : "Confirm unsuccessfull. Please try again"
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(confirmedUser, null, 2))
+            res.end(JSON.stringify(
+                {
+                    user: confirmedUser,
+                    message: message
+                },
+                 null, 2))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -51,7 +58,25 @@ const router = async (req, res) => {
             res.writeHead(404, {"Content-Type": "text/plain"})
             res.end(String(err))
         }
-    }    
+    } 
+    else if (req.url == "/api/user/logout" && req.method == "GET") {
+        try {
+            let token = req.headers.authorization
+            let response = await usersController.logoutUser(token)
+
+            res.writeHead(200, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                {
+                    message: response
+                },
+                 null, 2))
+        } 
+        catch (err) {
+            res.writeHead(404, {"Content-Type": "text/plain"})
+            res.end(String(err))
+        }
+        return
+    }   
     else if (req.url == "/api/user" && req.method == "GET") {
         try {
             const users = await usersController.getAllUsers()
@@ -91,6 +116,48 @@ const router = async (req, res) => {
             res.end(String(err))
         }
     }   
+    else if (req.url == "/api/user/profile" && req.method == "GET") {
+        try {   
+            let token = req.headers.authorization
+            const profile = await usersController.getUserByToken(token)
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(profile, null, 2))
+        } 
+        catch (err) {
+            res.writeHead(404, {"Content-Type": "text/plain"})
+            res.end(String(err))
+        }
+        return
+    }
+    else if (req.url == "/api/user/profile" && req.method == "PATCH") {
+        try {
+            let token = req.headers.authorization
+            let checkToken = await usersController.authorizeUser(token)
+            
+            if (checkToken == -1) {
+                res.writeHead(404, {"Content-Type": "text/plain"})
+                res.end(String(err))
+            }
+            else {
+                let profile = usersController.getUserByToken(token)
+                let body = await getRequestData(req)
+                let updatedUser = await usersController.updateUser(profile.id, body.email, body.firstName, body.lastName)
+                
+                res.writeHead(200, {"Content-Type": "application/json"})
+                res.end(JSON.stringify(updatedUser, null, 2))
+            }
+        } 
+        catch (err) {
+            res.writeHead(404, {"Content-Type": "text/plain"})
+            res.end(String(err))
+        }
+        return
+    }
+    else if (req.url == "/api/user/profile" && req.method == "POST") {
+        //upload image
+        return
+    }
 }
 
 module.exports = router

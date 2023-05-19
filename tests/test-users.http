@@ -23,23 +23,23 @@ Content-Type: "application/json"
 
 ### GET - logout
 GET http://localhost:3000/api/user/logout HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzcxMzYzMCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzcxNSwiZXhwIjoxNjg0MjIwMTE1fQ.av7btoL66ePgxCiD57iwnCuXbEhsxyP-Os1sOw903bY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDIxOTczNywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDI2OSwiZXhwIjoxNjg0NjAwNjY5fQ.5CARTB6IaMHq_IcKvzc3HpypgpU-7okh4ic9ZiH1abc
 
 ### GET - get all users
 GET http://localhost:3000/api/user HTTP/1.1
 
 ### POST - auth user by token
 POST http://localhost:3000/api/user/auth HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzcxMzYzMCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzc4NCwiZXhwIjoxNjg0MjIwMTg0fQ.9dvTEtOmd_Pkb_ziVWDrMFUMO0FbZR_a0gH0EIKHaz0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDIxOTczNywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDI4MCwiZXhwIjoxNjg0NjAwNjgwfQ.dIMB3v4WYjpGAFTKF-wxd8xQJfjtf94Q_B8aB-zayQI
 
 ### GET - get profile by token
 GET http://localhost:3000/api/user/profile HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzg5Njg3OCwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzg5OCwiZXhwIjoxNjg0MjIwMjk4fQ.fCwDZrP8oBzYFk7UpoCU9IlzOCZsXwu_hQ-c6ZCaE4g
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDUxMjgwMSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDUxOSwiZXhwIjoxNjg0NjAwOTE5fQ.7khE01VCR_XhNxK3WYnzUtZr6yjIS8GifESb1NuvLoA
 
 ### PATCH - update profile
 PATCH http://localhost:3000/api/user/profile HTTP/1.1
 Content-Type: "application/json"
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzk0MDgxMSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDEzMzk0MywiZXhwIjoxNjg0MjIwMzQzfQ.LUwV7dbWpJWUoJzJrFuszMAeNBg66pYt9qvT3B66wOM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDY1OTM3NywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDY2MiwiZXhwIjoxNjg0NjAxMDYyfQ.pn-4iI22Vb1JzAZ1b_lW6KXWyb7MCxf6JgKryZvZltg
 
 {
     "firstName": "Grzesiu",
@@ -47,5 +47,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzk0MDgxMSwi
     "email": "siefczyk_grzesiu@gmail.com"
 }
 
-### GET - get all user posts
-GET http://localhost:3000/api/user/posts HTTP/1.1
+### POST - send profile image
+POST http://localhost:3000/api/user/profile/image HTTP/1.1
+Content-Type: multipart/form-data; boundary=----FormBoundary1234
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDg5NDk4NiwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDg5NywiZXhwIjoxNjg0NjAxMjk3fQ.Fsj2CrPjEUlgJzAJO-wwO2P_lxGAK5OH5mD_gYReuJI
+
+------FormBoundary1234
+Content-Disposition: form-data; name="file"; filename="testInput.jpg"
+Content-Type: image/jpeg
+
+< ./testInput.jpg 
+
+------FormBoundary1234

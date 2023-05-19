@@ -1,4 +1,4 @@
-const imageController = require("./imageFileController")
+const imageFileController = require("./imageFileController")
 const imageJsonController = require("./imageJsonController")
 const usersController = require("./usersController")
 
@@ -8,10 +8,10 @@ const formidable = require("formidable")
 module.exports = {
     createPost: (req, res, email) => {
         return new Promise(async (resolve, reject) => {
-            const { dateNow, image, data } = await imageController.createImage(req, res)
             const user = usersController.getUserByEmail(email)
+            const { dateNow, image, data } = await imageFileController.createImage(req, res, user.id)
             const newPost = new Post(dateNow, user, image, data.description, data.location, data.tags)
-            const success = await usersController.addImage(email, newPost)
+            const success = await usersController.addPost(email, newPost)
             resolve(success)
         })  
     },

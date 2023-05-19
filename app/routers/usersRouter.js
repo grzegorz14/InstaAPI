@@ -1,3 +1,5 @@
+const imageFileController = require("../controllers/imageFileController")
+const imageJsonController = require("../controllers/imageJsonController")
 const usersController = require("../controllers/usersController")
 const { getRequestData } = require("../helpers/getRequestData")
 
@@ -140,7 +142,7 @@ const router = async (req, res) => {
                 res.end(String(err))
             }
             else {
-                let profile = usersController.getUserByToken(token)
+                let profile = await usersController.getUserByToken(token)
                 let body = await getRequestData(req)
                 let updatedUser = await usersController.updateUser(profile.id, body.email, body.firstName, body.lastName)
                 
@@ -154,8 +156,41 @@ const router = async (req, res) => {
         }
         return
     }
-    else if (req.url == "/api/user/profile" && req.method == "POST") {
-        //upload image
+    else if (req.url == "/api/user/profile/image" && req.method == "POST") {
+        try {
+            let token = req.headers.authorization
+            let email = await usersController.authorizeUser(token)
+            if (email == -1) {
+                res.writeHead(404, {"Content-Type": "text/plain"})
+                res.end("Authorization failed.")
+                return
+            }
+
+            let user = await usersController.getUserByEmail(email)
+            const profileImage = await imageFileController.createProfileImage(req, res, user.id)
+            const success = await usersController.addProfileImage(email, profileImage)
+
+            if (success) {
+                res.writeHead(201, {"Content-Type": "application/json"})
+                res.end(JSON.stringify(
+                    {
+                        message: "Profile image is uploaded."
+                    }, 
+                    null, 2))
+            }
+            else {
+                res.writeHead(201, {"Content-Type": "application/json"})
+                res.end(JSON.stringify(
+                    {
+                        message: "Error while uploading profile image."
+                    }, 
+                    null, 2))
+            }
+        } 
+        catch (err) {
+            res.writeHead(404, {"Content-Type": "text/plain"})
+            res.end(String(err))
+        }
         return
     }
 }

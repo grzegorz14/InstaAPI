@@ -156,5 +156,18 @@ module.exports = {
                 resolve(false)
             }
         })
+    },
+    addProfileImage: (email, image) => {
+        return new Promise(async (resolve, reject) => {
+            let indexToUpdate = users.findIndex(u => u.email == email)
+            if (indexToUpdate >= 0) {
+                users[indexToUpdate].profileImage = image
+                resolve(true)
+            }
+            else {
+                console.log("No user found with given email.")
+                resolve(false)
+            }
+        })
     }
 }

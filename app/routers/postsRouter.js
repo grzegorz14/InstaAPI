@@ -5,7 +5,7 @@ const router = async (req, res) => {
     if (req.url == "/api/posts" && req.method == "POST") {
         try {
             let token = req.headers.authorization
-            let email = usersController.authorizeUser(token)
+            let email = await usersController.authorizeUser(token)
             if (email == -1) {
                 res.writeHead(404, {"Content-Type": "text/plain"})
                 res.end("Authorization failed.")

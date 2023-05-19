@@ -9,7 +9,7 @@ class User {
         this.email = email
         this.confirmed = false
         this.password = encryptedPassword
-        this.profilePhoto = null
+        this.profileImage = null
         this.posts = []
     }
 

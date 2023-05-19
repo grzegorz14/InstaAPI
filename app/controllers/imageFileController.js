@@ -4,6 +4,7 @@ const sharp = require("sharp")
 const imageJsonController = require("./imageJsonController")
 
 module.exports = {
+    // create image in album
     createImage: (request, response) => {
         return new Promise((resolve, reject)=>{
             const uploadDir = __dirname + "\\..\\..\\uploads\\"
@@ -25,13 +26,78 @@ module.exports = {
                             reject(String(err))
                         }
                         else {
-                            const image = jsonController.addJsonImage(album, file["name"], newPath, dateNow)
+                            const image = imageJsonController.addJsonImage(data.album, file["name"], newPath, dateNow)
                             resolve({
                                 dateNow: dateNow,
                                 image: image,
                                 data: data
                             }
                         )
+                        }
+                    })
+                })
+            })
+        })
+    },
+    // create image in user album
+    createImage: (request, response, userId) => {
+        return new Promise((resolve, reject)=>{
+            const uploadDir = __dirname + "\\..\\..\\uploads\\"
+            const form = formidable({ multiples: true, uploadDir: uploadDir })
+
+            form.parse(request, async (err, fields, files) =>{
+                if (err) {
+                    reject(String(err))
+                }
+                const file = files["file"]
+                const data = fields["data"]
+                //const albumDirPath = "uploads\\" + data.album + "\\"
+                const albumDirPath = "uploads\\" + userId + "\\"
+                const dateNow = Date.now()
+                const newPath = albumDirPath + dateNow + "." + file.name.split(".").pop()
+
+                fs.mkdir(albumDirPath, (err) => {
+                    fs.rename(file.path, newPath, (err) => {
+                        if (err) {
+                            reject(String(err))
+                        }
+                        else {
+                            const image = imageJsonController.addJsonImage(userId, file["name"], newPath, dateNow)
+                            resolve({
+                                dateNow: dateNow,
+                                image: image,
+                                data: data
+                            }
+                        )
+                        }
+                    })
+                })
+            })
+        })
+    },
+    // add profile photo
+    createProfileImage: (request, response, userId) => {
+        return new Promise((resolve, reject)=>{
+            const uploadDir = __dirname + "\\..\\..\\uploads\\"
+            const form = formidable({ multiples: true, uploadDir: uploadDir })
+
+            form.parse(request, async (err, fields, files) =>{
+                if (err) {
+                    reject(String(err))
+                }
+                const file = files["file"]
+                const albumDirPath = "uploads\\" + userId + "\\"
+                const dateNow = Date.now()
+                const newPath = albumDirPath + "profile_image" + "." + file.name.split(".").pop()
+
+                fs.mkdir(albumDirPath, (err) => {
+                    fs.rename(file.path, newPath, (err) => {
+                        if (err) {
+                            reject(String(err))
+                        }
+                        else {
+                            const image = imageJsonController.addJsonImage(userId, file["name"], newPath, dateNow)
+                            resolve(image)
                         }
                     })
                 })

@@ -1,12 +1,22 @@
-const imageController = require("../controllers/imageController")
+const imageFileController = require("../controllers/imageFileController")
 const jsonController = require("../controllers/imageJsonController")
+const usersController = require("../controllers/usersController")
 const formidable = require("formidable")
 
 const router = async (req, res) => {
     if (req.url == "/api/images" && req.method == "POST") {
         try {
-            const { album, originalName, url, dateNow } = await imageController.createImage(req, res)
+            let token = req.headers.authorization
+            let email = usersController.authorizeUser(token)
+            if (email == -1) {
+                res.writeHead(404, {"Content-Type": "text/plain"})
+                res.end("Authorization failed.")
+                return
+            }
+
+            const { album, originalName, url, dateNow } = await imageFileController.createImage(req, res)
             const newImage = await jsonController.addJsonImage(album, originalName, url, dateNow)
+            const success = await usersController.addImage(email, newImage)
             res.writeHead(201, {"Content-Type": "application/json"})
             res.end(JSON.stringify(newImage, null, 2))
         } 
@@ -53,7 +63,7 @@ const router = async (req, res) => {
             let deletedImage = await jsonController.deleteJsonImageById(deleteId)
             if (deletedImage != null) {
                 console.log(deletedImage)
-                let message = await imageController.deleteImage(deletedImage)
+                let message = await imageFileController.deleteImage(deletedImage)
                 res.writeHead(201, {"Content-Type": "application/json"})
                 res.end(JSON.stringify(message, null, 2))
             }

@@ -14,8 +14,8 @@ module.exports = {
                     reject(String(err))
                 }
                 const file = files["file"]
-                const album = fields["album"]
-                const albumDirPath = "uploads\\" + album + "\\"
+                const data = fields["data"]
+                const albumDirPath = "uploads\\" + data.album + "\\"
                 const dateNow = Date.now()
                 const newPath = albumDirPath + dateNow + "." + file.name.split(".").pop()
 
@@ -24,13 +24,15 @@ module.exports = {
                         if (err) {
                             reject(String(err))
                         }
-                        resolve({
-                                album: album,
-                                originalName: file["name"],      
-                                url: newPath,
-                                dateNow: dateNow
+                        else {
+                            const image = jsonController.addJsonImage(album, file["name"], newPath, dateNow)
+                            resolve({
+                                dateNow: dateNow,
+                                image: image,
+                                data: data
                             }
                         )
+                        }
                     })
                 })
             })

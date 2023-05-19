@@ -1,6 +1,5 @@
 const images = []
 
-// Image class represents Post class in mobile app
 class Image {
     constructor(album, orginalName, url, dateNow) {
         this.id = dateNow
@@ -10,9 +9,9 @@ class Image {
         this.lastChange = "original"
         this.history = []
         this.history.push(new ImageHistory("original", dateNow))
-        this.tags = []
     }
 
+    // after image edit operation (crop, tint...)
     updateHistory(operation) {
         let now = Date.now()
         this.history.push({

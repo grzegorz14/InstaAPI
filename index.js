@@ -6,6 +6,7 @@ const tagsRouter = require("./app/routers/tagsRouter")
 const filtersRouter = require("./app/routers/filtersRouter")
 const getFilesRouter = require("./app/routers/getFilesRouter")
 const usersRouter = require("./app/routers/usersRouter")
+const postsRouter = require("./app/routers/postsRouter")
 
 const ip = Object.values(require('os').networkInterfaces())
                         .reduce((r, list) => r.concat(list.reduce((rr, i) => rr.concat(i.family === 'IPv4' && !i.internal && i.address || []), [])), [])
@@ -37,6 +38,11 @@ http.createServer(async (req, res) => {
     //users router
     else if (req.url.search("/api/user") != -1) {
         await usersRouter(req, res)
+    }
+
+    //posts router
+    else if (req.url.search("/api/posts") != -1) {
+        await postsRouter(req, res)
     }
 
 }).listen(process.env.APP_PORT, () => console.log("Listen on " + process.env.APP_PORT))

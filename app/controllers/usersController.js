@@ -143,5 +143,18 @@ module.exports = {
                 reject("No user found with given id.")
             }
         })
+    },
+    addPost: (email, image) => {
+        return new Promise(async (resolve, reject) => {
+            let indexToUpdate = users.findIndex(u => u.email == email)
+            if (indexToUpdate >= 0) {
+                users[indexToUpdate].posts.push(image)
+                resolve(true)
+            }
+            else {
+                console.log("No user found with given email.")
+                resolve(false)
+            }
+        })
     }
 }

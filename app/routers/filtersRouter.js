@@ -1,5 +1,5 @@
 const filtersController = require("../controllers/filtersController")
-const imageController = require("../controllers/imageController")
+const imageFileController = require("../controllers/imageFileController")
 const { getRequestData } = require("../helpers/getRequestData")
 
 
@@ -7,7 +7,7 @@ const router = async (req, res) => {
     if (req.url.match(/\/api\/filters\/metadata\/([a-z0-9]+)/) && req.method == "GET") {
         try {
             const id = req.url.split("/").pop()
-            let metadata = imageController.getImageMetadataById(id)
+            let metadata = imageFileController.getImageMetadataById(id)
             if (metadata == null) {
                 res.writeHead(200, {"Content-Type": "text/plain"})
                 res.end(JSON.stringify({"message": "There is no image with given ID"}, null, 2))

@@ -46,3 +46,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDEzMzk0MDgxMSwi
     "lastName": "Siefczyk",
     "email": "siefczyk_grzesiu@gmail.com"
 }
+
+### GET - get all user posts
+GET http://localhost:3000/api/user/posts HTTP/1.1

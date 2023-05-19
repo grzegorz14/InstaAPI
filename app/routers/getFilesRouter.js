@@ -1,4 +1,4 @@
-const imageController = require("../controllers/imageController")
+const imageFileController = require("../controllers/imageFileController")
 const fs = require("fs")
 const p = require('path')
 
@@ -10,7 +10,7 @@ const router = async (req, res) => {
             const album = pathArray.pop()
 
             const path = "uploads\\" + album + "\\" + imageName
-            const image = imageController.getImageFromPath(path)
+            const image = imageFileController.getImageFromPath(path)
 
             if (image == null) {
                 res.writeHead(200, {"Content-Type": "text/plain"})
@@ -29,7 +29,7 @@ const router = async (req, res) => {
     else if (req.url.match(/\/api\/getfile\/([a-z0-9]+)/) && req.method == "GET") {
         try {
             const id = req.url.split("\\").pop()
-            const image = imageController.getImageById(id)
+            const image = imageFileController.getImageById(id)
             let path = p.join(".\\..\\..\\" + image.url)
             var stat = fs.statSync(path)
         

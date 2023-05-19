@@ -1,3 +1,5 @@
+const tags = []
+
 class Tag {
     constructor(name) {
         this.id = Date.now()
@@ -13,7 +15,7 @@ class Tag {
     }
 }
 
-const initalTags = [
+const initialTags = [
     "#love",
     "#instagood",
     "#fashion",
@@ -49,9 +51,7 @@ const initalTags = [
     "#polyphia"
 ]
 
-const tags = []
-
-initalTags.forEach(tag => {
+initialTags.forEach(tag => {
     tags.push(new Tag(tag))
 })
 

@@ -47,7 +47,7 @@ module.exports = {
     },
     loginUser: (loginData) => {
         return new Promise((resolve, reject) => {
-            if (users.filter(u => u.email == loginData.email).length == 0) reject("User with given email not found")
+            if (users.filter(u => u.email == loginData.email).length == 0) reject("loginUser - user with given email not found")
             let user = users.filter(u => u.email == loginData.email)[0]
 
             if (!bcrypt.compare(loginData.password, user.password)) {
@@ -82,7 +82,7 @@ module.exports = {
     },
     getUserByEmail: (email) => {
         return new Promise((resolve, reject) => {
-            if (users.filter(u => u.email == email).length == 0) reject("User with given email not found")
+            if (users.filter(u => u.email == email).length == 0) reject("getUserByEmail - user with given email not found")
             else resolve(users.filter(u => u.email == email)[0])
         })
     },
@@ -94,13 +94,13 @@ module.exports = {
                 (err, result) => { return { err: err, result: result }})
 
             if (decoded.err != "null" && decoded.err != null) {
-                reject("User with given token not found")
+                reject("getUserByToken - user with given token not found")
                 return
             }
 
             let email = decoded.result.email
 
-            if (users.filter(u => u.email == email).length == 0) reject("User with given token not found")
+            if (users.filter(u => u.email == email).length == 0) reject("getUserByToken - user with given token not found")
             else resolve(users.filter(u => u.email == email)[0])
         })
     },
@@ -127,7 +127,7 @@ module.exports = {
                 reject(-1)
             }
             else {
-                console.log("Authorization succeded.")
+                console.log("Authorization succeded for: " + decoded.result.email)
                 resolve(decoded.result.email)
             }
         })
@@ -140,7 +140,7 @@ module.exports = {
                 resolve(users[indexToUpdate])
             }
             else {
-                reject("No user found with given id.")
+                reject("updateUser - no user found with given id.")
             }
         })
     },
@@ -152,7 +152,7 @@ module.exports = {
                 resolve(true)
             }
             else {
-                console.log("No user found with given email.")
+                console.log("addPost - no user found with given email.")
                 resolve(false)
             }
         })
@@ -165,9 +165,29 @@ module.exports = {
                 resolve(true)
             }
             else {
-                console.log("No user found with given email.")
+                console.log("addProfileImage - no user found with given email.")
                 resolve(false)
             }
+        })
+    },
+    deletePost: (userEmail, postId) => {
+        return new Promise(async (resolve, reject) => {
+            const userWithPostToDelete = await module.exports.getUserByEmail(userEmail)
+
+            if (userWithPostToDelete.posts.length > 0) {
+
+                let indexOfPostToDelete = userWithPostToDelete.posts.findIndex(p => p.id == postId)
+                if (indexOfPostToDelete >= 0) {
+                    const deletedPost = userWithPostToDelete.posts.splice(indexOfPostToDelete, 1)
+                    resolve(deletedPost)
+                } 
+                else {
+                    reject("deletePost - no post found with given ID in posts array of given user.")
+                }
+            } 
+            else {
+                reject("deletePost - no user found with given ID or user has no posts.")
+            } 
         })
     }
 }

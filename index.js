@@ -16,7 +16,7 @@ console.log(ip);
 http.createServer(async (req, res) => {
 
     //images router
-    if (req.url.search("/api/images") != -1 && req.url.search("/api/images/tags") == -1) {
+    if (req.url.search("/api/images") != -1) {
         await imageRouter(req, res)
     }
 
@@ -26,7 +26,7 @@ http.createServer(async (req, res) => {
     }
 
     //tags router
-    else if (req.url.search("/api/tags") != -1 || req.url.search("/api/images/tags") != -1) {
+    else if (req.url.search("/api/tags") != -1 || req.url.search("/api/posts/tags") != -1) {
         await tagsRouter(req, res)
     }
 
@@ -41,7 +41,7 @@ http.createServer(async (req, res) => {
     }
 
     //posts router
-    else if (req.url.search("/api/posts") != -1) {
+    else if (req.url.search("/api/posts") != -1 && req.url.search("/api/posts/tags") == -1) {
         await postsRouter(req, res)
     }
 

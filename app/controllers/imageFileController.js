@@ -57,12 +57,12 @@ module.exports = {
                 const newPath = albumDirPath + dateNow + "." + file.name.split(".").pop()
 
                 fs.mkdir(albumDirPath, (err) => {
-                    fs.rename(file.path, newPath, (err) => {
+                    fs.rename(file.path, newPath, async (err) => {
                         if (err) {
                             reject(String(err))
                         }
                         else {
-                            const image = imageJsonController.addJsonImage(userId, file["name"], newPath, dateNow)
+                            const image = await imageJsonController.addJsonImage(userId, file["name"], newPath, dateNow)
                             resolve({
                                 dateNow: dateNow,
                                 image: image,

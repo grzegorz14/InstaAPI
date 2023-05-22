@@ -7,7 +7,7 @@ module.exports = {
             try {
                 let image = imageJsonController.getJsonImageById(data.id)
                 if (image == null) {  
-                    reject("No image with given ID")
+                    reject("transformImage - no image with given ID")
                 }
                 let pathArray = image.url.split("\\")
                 pathArray.pop()

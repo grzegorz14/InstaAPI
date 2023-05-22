@@ -1,4 +1,4 @@
-const { images } = require("../models/image")
+const { posts } = require("../models/post")
 const { Tag, tags } = require("../models/tag")
 
 module.exports = {
@@ -14,13 +14,13 @@ module.exports = {
     },
     getTagById: (id) => {
         return new Promise((resolve, reject) => {
-            if (tags.filter(tag => tag.id == id).length == 0) reject("No tag found with given ID.")
+            if (tags.filter(tag => tag.id == id).length == 0) reject("getTagById - no tag found with given ID.")
             else resolve(tags.filter(tag => tag.id == id)[0])
         })
     },
     getTagByName: (name) => {
         return new Promise((resolve, reject) => {
-            if (tags.filter(tag => tag.name == name).length == 0) reject("No tag found with given name.")
+            if (tags.filter(tag => tag.name == name).length == 0) reject("getTagByName - no tag found with given name.")
             else resolve(tags.filter(tag => tag.name == name)[0])
         })
     },
@@ -37,45 +37,45 @@ module.exports = {
         })
     },
 
-    addTagToImage: (imageData) => {
-        return new Promise((resolve, reject) => {
-            if (images.filter(image => image.id == imageData.id).length == 0) {
-                resolve("No image found with given ID.")
+    addTagToPost: (postData) => {
+        return new Promise(async (resolve, reject) => {
+            if (posts.filter(p => p.id == postData.id).length == 0) {
+                resolve("addTagToPost - no image found with given ID.")
             }
             else {
-                let foundImage = images.filter(image => image.id == imageData.id)[0]
-                let tagToAdd = imageData.tags[0]
-                let tag = module.exports.addTag(tagToAdd)
-                foundImage.tags.push(tag)
-                resolve(foundImage)
+                let foundPost = posts.filter(p => p.id == postData.id)[0]
+                let tagToAdd = postData.tags[0]
+                let tag = await module.exports.addTag(tagToAdd)
+                foundPost.tags.push(tag)
+                resolve(foundPost)
             }
         })
     },
-    addMultipleTagsToImage: (imageData) => {
-        return new Promise((resolve, reject) => {
-            if (images.filter(image => image.id == imageData.id).length == 0) {
-                resolve("No image found with given ID.")
+    addMultipleTagsToPost: (postData) => {
+        return new Promise(async (resolve, reject) => {
+            if (posts.filter(p => p.id == postData.id).length == 0) {
+                resolve("addMultipleTagsToPost - no image found with given ID.")
             }
             else {
-                let foundImage = images.filter(image => image.id == imageData.id)[0]
-                imageData.tags.forEach(tagToAdd => {
-                    let tag = module.exports.addTag(tagToAdd)
-                    foundImage.tags.push(tag) 
+                let foundPost = posts.filter(p => p.id == postData.id)[0]
+                postData.tags.forEach(async (tagToAdd) => {
+                    let tag = await module.exports.addTag(tagToAdd)
+                    foundPost.tags.push(tag) 
                 })
-                resolve(foundImage)
+                resolve(foundPost)
             }
         })
     },
-    getTagsOfImage: (imageId) => {
+    getTagsOfPost: (postId) => {
         return new Promise((resolve, reject) => {
-            if (images.filter(image => image.id == imageId).length == 0) {
-                resolve("No image found with given ID.")
+            if (posts.filter(p => p.id == postId).length == 0) {
+                resolve("DeletePost - no post found with given ID.")
             }
             else {
-                let foundImage = images.filter(image => image.id == imageId)[0]
+                let foundPost = posts.filter(p => p.id == postId)[0]
                 resolve({
-                    id: foundImage.id,
-                    tags: foundImage.tags
+                    id: foundPost.id,
+                    tags: foundPost.tags
                 })
             }
         })

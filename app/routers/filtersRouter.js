@@ -1,6 +1,6 @@
 const filtersController = require("../controllers/filtersController")
 const imageFileController = require("../controllers/imageFileController")
-const { getRequestData } = require("../helpers/getRequestData")
+const { getRequestData } = require("../helpers/helpers")
 
 
 const router = async (req, res) => {
@@ -14,7 +14,7 @@ const router = async (req, res) => {
             }
             else {
                 res.writeHead(200, {"Content-Type": "application/json"})
-                res.end(JSON.stringify(metadata, null, 2))
+                res.end(JSON.stringify(metadata, null, 5))
             }
         } 
         catch (err) {
@@ -27,7 +27,7 @@ const router = async (req, res) => {
             let body = await getRequestData(req)
             const imageAfterOperation = await filtersController.transformImage(body)
             res.writeHead(200, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(imageAfterOperation, null, 2))
+            res.end(JSON.stringify(imageAfterOperation, null, 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})

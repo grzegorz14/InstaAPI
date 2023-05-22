@@ -14,7 +14,7 @@ const router = async (req, res) => {
 
             if (image == null) {
                 res.writeHead(200, {"Content-Type": "text/plain"})
-                res.end(JSON.stringify({"message": "There is no image with given path"}, null, 2))
+                res.end(JSON.stringify({"message": "There is no image with given path"}, null, 5))
             }
             else {
                 res.writeHead(200, {"Content-Type": "image/jpeg"})
@@ -38,7 +38,7 @@ const router = async (req, res) => {
 
             if (image == null) {
                 res.writeHead(200, {"Content-Type": "text/json"})
-                res.end(JSON.stringify({"message": "There is no image with given ID"}, null, 2))
+                res.end(JSON.stringify({"message": "There is no image with given ID"}, null, 5))
             }
             else {
                 res.writeHead(200, {"Content-Type": "image/jpeg", 'Content-Length': stat.size})

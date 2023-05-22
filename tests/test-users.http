@@ -30,16 +30,16 @@ GET http://localhost:3000/api/user HTTP/1.1
 
 ### POST - auth user by token
 POST http://localhost:3000/api/user/auth HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDIxOTczNywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDI4MCwiZXhwIjoxNjg0NjAwNjgwfQ.dIMB3v4WYjpGAFTKF-wxd8xQJfjtf94Q_B8aB-zayQI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDcwODMzMzAzMywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDcwODM0MiwiZXhwIjoxNjg0Nzk0NzQyfQ.m-hTycG8cqvZbi9KaOCG9wzwDTy07eNA3qOvcxl6aog
 
 ### GET - get profile by token
 GET http://localhost:3000/api/user/profile HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDUxMjgwMSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDUxOSwiZXhwIjoxNjg0NjAwOTE5fQ.7khE01VCR_XhNxK3WYnzUtZr6yjIS8GifESb1NuvLoA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDcwODMzMzAzMywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDcwODM0MiwiZXhwIjoxNjg0Nzk0NzQyfQ.m-hTycG8cqvZbi9KaOCG9wzwDTy07eNA3qOvcxl6aog
 
 ### PATCH - update profile
 PATCH http://localhost:3000/api/user/profile HTTP/1.1
 Content-Type: "application/json"
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDY1OTM3NywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDY2MiwiZXhwIjoxNjg0NjAxMDYyfQ.pn-4iI22Vb1JzAZ1b_lW6KXWyb7MCxf6JgKryZvZltg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDcwODMzMzAzMywiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDcwODM0MiwiZXhwIjoxNjg0Nzk0NzQyfQ.m-hTycG8cqvZbi9KaOCG9wzwDTy07eNA3qOvcxl6aog
 
 {
     "firstName": "Grzesiu",
@@ -50,7 +50,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDY1OTM3Nywi
 ### POST - send profile image
 POST http://localhost:3000/api/user/profile/image HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDUxNDg5NDk4NiwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDUxNDg5NywiZXhwIjoxNjg0NjAxMjk3fQ.Fsj2CrPjEUlgJzAJO-wwO2P_lxGAK5OH5mD_gYReuJI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NDc0NTMxMTE1NSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDc0NTMxMiwiZXhwIjoxNjg0ODMxNzEyfQ.KSrCxpRmtlnPdlHRkwQ2_BJkAlGMGoh5Xm-uobPt2Vw
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="testInput.jpg"

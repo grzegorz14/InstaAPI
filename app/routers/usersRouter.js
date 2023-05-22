@@ -1,7 +1,7 @@
 const imageFileController = require("../controllers/imageFileController")
 const imageJsonController = require("../controllers/imageJsonController")
 const usersController = require("../controllers/usersController")
-const { getRequestData } = require("../helpers/getRequestData")
+const { getRequestData, getCircularReplacer } = require("../helpers/helpers")
 
 const ip = Object.values(require('os').networkInterfaces())
                         .reduce((r, list) => r.concat(list.reduce((rr, i) => rr.concat(i.family === 'IPv4' && !i.internal && i.address || []), [])), [])
@@ -19,7 +19,7 @@ const router = async (req, res) => {
                     timeLimit: "Warning: link is active only for 1 hour!"
                 },
                 null,
-                2
+                5
             ))
         } 
         catch (err) {
@@ -38,7 +38,7 @@ const router = async (req, res) => {
                     user: confirmedUser,
                     message: message
                 },
-                 null, 2))
+                getCircularReplacer(), 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -54,7 +54,7 @@ const router = async (req, res) => {
                 {
                     token: authorizationToken
                 }, 
-                null, 2))
+                null, 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -71,7 +71,7 @@ const router = async (req, res) => {
                 {
                     message: response
                 },
-                 null, 2))
+                null, 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -83,7 +83,7 @@ const router = async (req, res) => {
         try {
             const users = await usersController.getAllUsers()
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(users, null, 2))
+            res.end(JSON.stringify(users, getCircularReplacer(), 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -102,7 +102,7 @@ const router = async (req, res) => {
                         success: false,
                         email: "null"
                     }, 
-                    null, 2))
+                    null, 5))
             }
             else {
                 res.end(JSON.stringify(
@@ -110,7 +110,7 @@ const router = async (req, res) => {
                         success: true,
                         email: authResponse
                     }, 
-                    null, 2))
+                    null, 5))
             }
         } 
         catch (err) {
@@ -124,7 +124,7 @@ const router = async (req, res) => {
             const profile = await usersController.getUserByToken(token)
 
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(profile, null, 2))
+            res.end(JSON.stringify(profile, getCircularReplacer(), 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
@@ -147,7 +147,7 @@ const router = async (req, res) => {
                 let updatedUser = await usersController.updateUser(profile.id, body.email, body.firstName, body.lastName)
                 
                 res.writeHead(200, {"Content-Type": "application/json"})
-                res.end(JSON.stringify(updatedUser, null, 2))
+                res.end(JSON.stringify(updatedUser, getCircularReplacer(), 5))
             }
         } 
         catch (err) {
@@ -176,7 +176,7 @@ const router = async (req, res) => {
                     {
                         message: "Profile image is uploaded."
                     }, 
-                    null, 2))
+                    null, 5))
             }
             else {
                 res.writeHead(201, {"Content-Type": "application/json"})
@@ -184,7 +184,7 @@ const router = async (req, res) => {
                     {
                         message: "Error while uploading profile image."
                     }, 
-                    null, 2))
+                    null, 5))
             }
         } 
         catch (err) {

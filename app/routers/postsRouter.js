@@ -17,7 +17,12 @@ const router = async (req, res) => {
             const newPost = await postsController.createPost(req, res, email)
 
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(newPost, getCircularReplacer(), 5))
+            res.end(JSON.stringify(
+                {
+                    success: true,
+                    newPost: newPost
+                }, 
+                getCircularReplacer(), 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})

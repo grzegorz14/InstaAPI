@@ -1,8 +1,8 @@
 ### GET - get file by id 
-GET http://localhost:3000/api/getfile/1681896081810 HTTP/1.1
+GET http://localhost:3000/api/getfile/1685112995829 HTTP/1.1
 
 ### GET - get file from path
-GET http://localhost:3000/api/uploads/myAlbum/1681894842960testInput.jpg HTTP/1.1
+GET http://localhost:3000/api/uploads/1685112984129/1685112995829.jpg HTTP/1.1
 
 ### GET - get image metadata by id
 GET http://localhost:3000/api/filters/metadata/1681895692255 HTTP/1.1

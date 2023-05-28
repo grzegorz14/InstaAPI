@@ -1,6 +1,7 @@
 const { User, users, loggedUserTokens } = require("../models/user")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const { posts } = require("../models/post")
 require('dotenv').config({ path: "./../../hidden.env" })
 
 module.exports = {
@@ -79,6 +80,12 @@ module.exports = {
                 reject("User was already logged out.")
             }
         })
+    },   
+    getUserById: (id) => {
+        return new Promise((resolve, reject) => {
+            if (users.filter(u => u.id == id).length == 0) reject("getUserById - user with given id not found")
+            else resolve(users.filter(u => u.id == id)[0])
+        })
     },
     getUserByEmail: (email) => {
         return new Promise((resolve, reject) => {
@@ -144,11 +151,12 @@ module.exports = {
             }
         })
     },
-    addPost: (email, image) => {
+    addPost: (email, post) => {
         return new Promise(async (resolve, reject) => {
             let indexToUpdate = users.findIndex(u => u.email == email)
             if (indexToUpdate >= 0) {
-                users[indexToUpdate].posts.push(image)
+                users[indexToUpdate].posts.push(post)
+                posts.push(post)
                 resolve(true)
             }
             else {

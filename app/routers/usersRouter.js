@@ -58,7 +58,7 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.end("User doesn't exist or wrong login data")
         }
     } 
     else if (req.url == "/api/user/logout" && req.method == "GET") {
@@ -84,6 +84,18 @@ const router = async (req, res) => {
             const users = await usersController.getAllUsers()
             res.writeHead(201, {"Content-Type": "application/json"})
             res.end(JSON.stringify(users, getCircularReplacer(), 5))
+        } 
+        catch (err) {
+            res.writeHead(404, {"Content-Type": "text/plain"})
+            res.end(String(err))
+        }
+    }
+    else if (req.url == "/\/api\/getuser\/([A-Za-z0-9]+)/" && req.method == "GET") {
+        try {
+            const id = req.url.split("/").pop()
+            const user = await usersController.getUserById(id)
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(user, getCircularReplacer(), 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})

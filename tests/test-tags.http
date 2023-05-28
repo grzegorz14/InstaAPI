@@ -12,7 +12,7 @@ POST http://localhost:3000/api/tags HTTP/1.1
 content-type: application/json
 
 {
-  "name": "#newTag1"
+  "name": "newTag1"
 }
 
 ### PATCH - add tag to post
@@ -23,7 +23,7 @@ content-type: application/json
   "id": "1684771834317",
   "tags": [
     {
-      "name": "#patchTag"
+      "name": "patchTag"
     }
   ]
 }
@@ -36,13 +36,13 @@ content-type: application/json
   "id": "1684771834317",
   "tags": [
     {
-      "name": "#patchTag1"
+      "name": "patchTag1"
     },
     {
-      "name": "#patchTag2"
+      "name": "patchTag2"
     },
     {
-      "name": "#patchTag3"
+      "name": "patchTag3"
     }
   ]
 }

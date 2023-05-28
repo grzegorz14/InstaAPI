@@ -10,15 +10,19 @@ const router = async (req, res) => {
             const album = pathArray.pop()
 
             const path = "uploads\\" + album + "\\" + imageName
-            const image = imageFileController.getImageFromPath(path)
+            var stat = fs.statSync(path)
+
+            var readStream = fs.createReadStream(path)
+            readStream.pipe(res)
+
+            const image = await imageFileController.getImageFromPath(path)
 
             if (image == null) {
                 res.writeHead(200, {"Content-Type": "text/plain"})
                 res.end(JSON.stringify({"message": "There is no image with given path"}, null, 5))
             }
             else {
-                res.writeHead(200, {"Content-Type": "image/jpeg"})
-                res.sendFile(path)
+                res.writeHead(200, {"Content-Type": "image/jpeg", 'Content-Length': stat.size})
             }
         } 
         catch (err) {
@@ -29,7 +33,7 @@ const router = async (req, res) => {
     else if (req.url.match(/\/api\/getfile\/([a-z0-9]+)/) && req.method == "GET") {
         try {
             const id = req.url.split("\\").pop()
-            const image = imageFileController.getImageById(id)
+            const image = await imageFileController.getImageById(id)
             let path = p.join(".\\..\\..\\" + image.url)
             var stat = fs.statSync(path)
         
@@ -42,7 +46,6 @@ const router = async (req, res) => {
             }
             else {
                 res.writeHead(200, {"Content-Type": "image/jpeg", 'Content-Length': stat.size})
-                return
             }
         } 
         catch (err) {

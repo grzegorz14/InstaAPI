@@ -1,15 +1,14 @@
 const posts = []
 
 class Post {
-    constructor(dateNow, userId, userEmail, image, description, location, tags) {
+    constructor(dateNow, simpleUser, image, description, location, tags, likes=0) {
         this.id = dateNow
-        this.userId = userId
-        this.userEmail = userEmail
+        this.simpleUser = simpleUser
         this.image = image
         this.description = description
         this.location = location
         this.tags = tags
-        this.likes = 0
+        this.likes = likes
     }
 }
 

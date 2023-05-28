@@ -30,7 +30,7 @@ const router = async (req, res) => {
             const id = req.url.split("/").pop()
             let tag = await tagsController.getTagById(id)
             if (tag == null) {
-                res.writeHead(200, {"Content-Type": "text/plain"})
+                res.writeHead(200, {"Content-Type": "application/json"})
                 res.end(JSON.stringify({"message": "There is no tag with given ID"}, null, 5))
             }
             else {
@@ -48,7 +48,7 @@ const router = async (req, res) => {
             const name = req.url.split("/").pop()
             let tag = await tagsController.getTagByName(name)
             if (tag == null) {
-                res.writeHead(200, {"Content-Type": "text/plain"})
+                res.writeHead(200, {"Content-Type": "application/json"})
                 res.end(JSON.stringify({"message": "There is no tag with given name"}, null, 5))
             }
             else {
@@ -65,8 +65,13 @@ const router = async (req, res) => {
         try {
             let body = await getRequestData(req)
             const newTag = await tagsController.addTag(body.name)
-            res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(newTag, null, 5))
+            res.writeHead(200, {"Content-Type": "text/plain"})
+            res.end(JSON.stringify(
+                {
+                    "message": "New tag is added",
+                    "tag": newTag.name
+                }
+                , null, 5))
         } 
         catch (err) {
             res.writeHead(404, {"Content-Type": "text/plain"})

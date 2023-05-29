@@ -14,7 +14,7 @@ const router = async (req, res) => {
                 return
             }
 
-            const newPost = await postsController.createPost(req, res, email)
+            const newPost = await postsController.createPostRequest(req, res, email)
 
             console.log("New post from user: " + email)
             res.writeHead(201, {"Content-Type": "application/json"})

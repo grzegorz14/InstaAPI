@@ -7,6 +7,10 @@ require('dotenv').config({ path: "./../../hidden.env" })
 module.exports = {
     registerNewUser: (registrationData) => {
         return new Promise(async (resolve, reject) => {
+            if (users.filter(u => u.email == registrationData.email).length > 0) {
+                reject("User with given email (" + registrationData.email + ") already exists")
+            }
+
             let encryptedPassword = await bcrypt.hash(registrationData.password, 10)
             let newUser = new User(
                 registrationData.firstName,
@@ -15,7 +19,6 @@ module.exports = {
                 encryptedPassword)
             
             users.push(newUser)
-            console.log("New user registers: " + registrationData.email)
 
             let token = jwt.sign(
                 {
@@ -26,6 +29,7 @@ module.exports = {
                 { expiresIn: "1h" } 
             )
 
+            console.log("New user registers: " + registrationData.email)
             resolve(token)
         })
     },
@@ -42,17 +46,29 @@ module.exports = {
             else {
                 let userToConfirm = users.filter(u => u.email == decoded.result.email)[0]
                 if (!userToConfirm.confirmed) userToConfirm.confirmed = true
+
+                console.log("User account confirmed: " + userToConfirm.email)
                 resolve(userToConfirm)
             }
         })
     },
     loginUser: (loginData) => {
-        return new Promise((resolve, reject) => {
-            if (users.filter(u => u.email == loginData.email).length == 0) reject("loginUser - user with given email not found")
+        return new Promise(async (resolve, reject) => {
+            if (users.filter(u => u.email == loginData.email).length == 0) {
+                reject("User with given email doesn't exist")
+            }
             let user = users.filter(u => u.email == loginData.email)[0]
 
-            if (!bcrypt.compare(loginData.password, user.password)) {
-                reject("Password is incorrect.")
+            let correctPassword = false
+            try {
+                correctPassword = await bcrypt.compare(loginData.password, user.password)
+            }
+            catch(err) {
+                reject("Password is incorrect")
+            }
+
+            if (!correctPassword) {
+                reject("Password is incorrect")
             }
             else {
                 let authorizationToken = jwt.sign(
@@ -65,6 +81,8 @@ module.exports = {
                 )
 
                 loggedUserTokens.push(authorizationToken)
+                
+                console.log("User logs in: " + user.email)
                 resolve(authorizationToken)
             }
         })
@@ -74,6 +92,8 @@ module.exports = {
             let indexToDelete = loggedUserTokens.findIndex(t => t == token)
             if (indexToDelete >= 0) {
                 loggedUserTokens.splice(indexToDelete, 1)
+
+                console.log("User logs out by token.")
                 resolve("User is logged out.")
             }
             else {
@@ -101,14 +121,17 @@ module.exports = {
                 (err, result) => { return { err: err, result: result }})
 
             if (decoded.err != "null" && decoded.err != null) {
-                reject("getUserByToken - user with given token not found")
-                return
+                reject("User with given token not found")
             }
 
             let email = decoded.result.email
 
-            if (users.filter(u => u.email == email).length == 0) reject("getUserByToken - user with given token not found")
-            else resolve(users.filter(u => u.email == email)[0])
+            if (users.filter(u => u.email == email).length == 0) {
+                reject("User with given token not found")
+            }
+            else {
+                resolve(users.filter(u => u.email == email)[0])
+            }
         })
     },
     getAllUsers: () => {
@@ -119,9 +142,7 @@ module.exports = {
     authorizeUser: (token) => {
         return new Promise(async (resolve, reject) => {
             if (!loggedUserTokens.includes(token)) {
-                console.log("Authorization failed. User is logged out.")
-                reject(-1)
-                return
+                reject("Authorization failed. User is logged out")
             }
 
             let decoded = await jwt.verify(
@@ -130,8 +151,7 @@ module.exports = {
                 (err, result) => { return { err: err, result: result }})
 
             if (decoded.err != "null" && decoded.err != null) {
-                console.log("Authorization failed.")
-                reject(-1)
+                reject("Authorization failed")
             }
             else {
                 console.log("Authorization succeded for: " + decoded.result.email)
@@ -144,6 +164,8 @@ module.exports = {
             let indexToUpdate = users.findIndex(u => u.id == id)
             if (indexToUpdate >= 0) {
                 users[indexToUpdate].updateData(newEmail, newFirstName, newLastName)
+                
+                console.log("User account is updated: " + users[indexToUpdate].email)
                 resolve(users[indexToUpdate])
             }
             else {
@@ -151,12 +173,13 @@ module.exports = {
             }
         })
     },
-    addPost: (email, post) => {
+    addPost: (email, postId) => {
         return new Promise(async (resolve, reject) => {
             let indexToUpdate = users.findIndex(u => u.email == email)
             if (indexToUpdate >= 0) {
-                users[indexToUpdate].posts.push(post)
-                posts.push(post)
+                users[indexToUpdate].posts.push(postId)
+        
+                console.log("New post is added by user: " + email)
                 resolve(true)
             }
             else {
@@ -170,27 +193,30 @@ module.exports = {
             let indexToUpdate = users.findIndex(u => u.email == email)
             if (indexToUpdate >= 0) {
                 users[indexToUpdate].profileImage = image
-                resolve(true)
+
+                console.log("Profile image uploaded by user: " + email)
+                resolve("Profile image uploaded")
             }
             else {
-                console.log("addProfileImage - no user found with given email.")
-                resolve(false)
+                reject("No user found with given email")
             }
         })
     },
-    deletePost: (userEmail, postId) => {
+    deletePost: (email, postId) => {
         return new Promise(async (resolve, reject) => {
-            const userWithPostToDelete = await module.exports.getUserByEmail(userEmail)
+            const userWithPostToDelete = await module.exports.getUserByEmail(email)
 
             if (userWithPostToDelete.posts.length > 0) {
 
-                let indexOfPostToDelete = userWithPostToDelete.posts.findIndex(p => p.id == postId)
-                if (indexOfPostToDelete >= 0) {
-                    const deletedPost = userWithPostToDelete.posts.splice(indexOfPostToDelete, 1)
-                    resolve(deletedPost)
+                let indexToDelete = userWithPostToDelete.posts.findIndex(id => id == postId)
+                if (indexToDelete >= 0) {
+                    const deletedPostId = userWithPostToDelete.posts.splice(indexToDelete, 1)
+
+                    console.log("Post is deleted by user: " + email)
+                    resolve(deletedPostId)
                 } 
                 else {
-                    reject("deletePost - no post found with given ID in posts array of given user.")
+                    reject("deletePost - no ID found in posts array of given user.")
                 }
             } 
             else {

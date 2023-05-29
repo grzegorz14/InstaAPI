@@ -62,181 +62,193 @@ module.exports = {
         await usersController.addProfileImage(hbo.email, hboProfileImage)
         await usersController.addProfileImage(grzegorz.email, grzegorzProfileImage)
 
-        await usersController.addPost(
-            zendaya.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
-                new Image("initialZendaya", "", "uploads\\initialZendaya\\z1.jpg", Date.now()),
-                "session session session",
-                "New York",
-                ["love", "city"], 
-                35022))
-        await usersController.addPost(
-            zendaya.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
-                new Image("initialZendaya", "", "uploads\\initialZendaya\\z2.jpg", Date.now()),
-                "good vibes",
-                "USA",
-                ["summer"],
-                24211))
-        await usersController.addPost(
-            zendaya.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
-                new Image("initialZendaya", "", "uploads\\initialZendaya\\z3.webp", Date.now()),
-                "OMG! Dune part 1 is finally out! Can't wait to see the final effect in the cinema :)))",
-                "",
-                ["dune", "acting", "herbert"],
-                11943))
-        await usersController.addPost(
-            zendaya.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
-                new Image("initialZendaya", "", "uploads\\initialZendaya\\z5.webp", Date.now()),
-                "Meet Jules :)",
-                "London",
-                ["friends"],
-                8447))
+        const z1Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
+            new Image("initialZendaya", "", "uploads\\initialZendaya\\z1.jpg", Date.now()),
+            "session session session",
+            "New York",
+            ["love", "city"], 
+            35022)
+        const z2Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
+            new Image("initialZendaya", "", "uploads\\initialZendaya\\z2.jpg", Date.now()),
+            "",
+            "",
+            ["sunny", "holidays", "home"],
+            23743)
+        const z3Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
+            new Image("initialZendaya", "", "uploads\\initialZendaya\\z3.webp", Date.now()),
+            "OMG! Dune part 1 is finally out! Can't wait to see the final effect in the cinema :)))",
+            "",
+            ["dune", "acting", "herbert"],
+            11943)
+        const z4Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(zendaya.email)), 
+            new Image("initialZendaya", "", "uploads\\initialZendaya\\z5.webp", Date.now()),
+            "Meet Jules :)",
+            "London",
+            ["friends"],
+            8447)
 
-        await usersController.addPost(
-            marczynski.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
-                new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike1.jpg", Date.now()),
-                "This S-WORKS is extremely stiff! And it looks gorgeous...",
-                "",
-                ["cycling", "photography"],
-                147))
-        await usersController.addPost(
-            marczynski.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
-                new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike2.jpg", Date.now()),
-                "Pinarello Dogma F in the most beautiful color option",
-                "Italy",
-                ["cycling"],
-                64))
-        await usersController.addPost(
-            marczynski.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
-                new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike3.jpg", Date.now()),
-                "TIME MACHINE 01:00:00",
-                "Kraków",
-                ["cycling"],
-                23))
+        const m1Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
+            new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike1.jpg", Date.now()),
+            "This S-WORKS is extremely stiff! And it looks gorgeous...",
+            "",
+            ["cycling", "photography"],
+            147)
+        const m2Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
+            new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike2.jpg", Date.now()),
+            "Pinarello Dogma F in the most beautiful color option",
+            "Italy",
+            ["cycling"],
+            64)
+        const m3Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(marczynski.email)), 
+            new Image("initialMarczynski", "", "uploads\\initialMarczynski\\initial_bike3.jpg", Date.now()),
+            "TIME MACHINE 01:00:00",
+            "Kraków",
+            ["cycling"],
+            23)
 
-        await usersController.addPost(
-            sergio.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
-                new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature1.jpg", Date.now()),
-                "For sell only for 1000$ :)",
-                "Essen, Germany",
-                ["painting", "art"],
-                637))
-        await usersController.addPost(
-            sergio.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
-                new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature2.jpg", Date.now()),
-                "Any tips what to do better?",
-                "Essen, Germany",
-                [],
-                978))
-        await usersController.addPost(
-            sergio.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
-                new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature3.jpg", Date.now()),
-                "5 hours of hard work",
-                "Alicante, Spain",
-                ["painting"],
-                156))
-                
-        await usersController.addPost(
-            hbo.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
-                new Image("initialHBO", "", "uploads\\initialHBO\\initial_dune.jpg", Date.now()),
-                "Can't wait? It's worth waiting for...",
-                "",
-                ["dune"],
-                7544))
-        await usersController.addPost(
-            hbo.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
-                new Image("initialHBO", "", "uploads\\initialHBO\\initial_euphoria.jpg", Date.now()),
-                "With extraordinary music of Labrinth, check it out on Spotify",
-                "",
-                ["euphoria"],
-                3523))
-        await usersController.addPost(
-            hbo.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
-                new Image("initialHBO", "", "uploads\\initialHBO\\initial_hotd.webp", Date.now()),
-                "TOMORROW 17:00",
-                "",
-                ["hotd"],
-                16))
+        const s1Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
+            new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature1.jpg", Date.now()),
+            "For sell only for 1000$ :)",
+            "Essen, Germany",
+            ["painting", "art"],
+            637)
+        const s2Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
+            new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature2.jpg", Date.now()),
+            "Any tips what to do better?",
+            "Essen, Germany",
+            [],
+            978)
+        const s3Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(sergio.email)), 
+            new Image("initialSergio", "", "uploads\\initialSergio\\initial_miniature3.jpg", Date.now()),
+            "5 hours of hard work",
+            "Alicante, Spain",
+            ["painting"],
+            156)
 
-                
-        await usersController.addPost(
-            grzegorz.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
-                new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\gbike.jpg", Date.now()),
-                "",
-                "",
-                [""],
-                6))
-        await usersController.addPost(
-            grzegorz.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
-                new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\glondon.jpg", Date.now()),
-                "",
-                "London",
-                ["travel"],
-                8))
-        await usersController.addPost(
-            grzegorz.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
-                new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\grunning.jpg", Date.now()),
-                "Życiówka! 49:50 na 10km",
-                "Kraków",
-                ["running"],
-                28))
-        await usersController.addPost(
-            grzegorz.email,
-            new Post(
-                Date.now(), 
-                SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
-                new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\gprofile.jpg", Date.now()),
-                "",
-                "",
-                ["hotd"],
-                23))
+        const h1Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
+            new Image("initialHBO", "", "uploads\\initialHBO\\initial_dune.jpg", Date.now()),
+            "Can't wait? It's worth waiting for...",
+            "",
+            ["dune"],
+            7544)
+        const h2Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
+            new Image("initialHBO", "", "uploads\\initialHBO\\initial_euphoria.jpg", Date.now()),
+            "With extraordinary music of Labrinth, check it out on Spotify",
+            "",
+            ["euphoria"],
+            3523)
+        const h3Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(hbo.email)), 
+            new Image("initialHBO", "", "uploads\\initialHBO\\initial_hotd.webp", Date.now()),
+            "TOMORROW 17:00",
+            "",
+            ["hotd"],
+            16)
+        
+        const g1Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\gbike.jpg", Date.now()),
+            "",
+            "",
+            [""],
+            6)
+        const g2Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\glondon.jpg", Date.now()),
+            "",
+            "London",
+            ["travel"],
+            8)
+        const g3Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\grunning.jpg", Date.now()),
+            "Życiówka! 49:50 na 10km",
+            "Kraków",
+            ["running"],
+            28)
+        const g4Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\gprofile.jpg", Date.now()),
+            "",
+            "",
+            ["hotd"],
+            23)
+
+        posts.push(
+            z1Post,
+            z2Post,
+            z3Post,
+            z4Post,
+
+            m1Post,
+            m2Post,
+            m3Post,
+            
+            s1Post,
+            s2Post,
+            s3Post,
+
+            h1Post,
+            h2Post,
+            h3Post,
+
+            g1Post,
+            g2Post,
+            g3Post,
+            g4Post
+        )
+
+        await usersController.addPost(zendaya.email, z1Post.id)
+        await usersController.addPost(zendaya.email, z2Post.id)
+        await usersController.addPost(zendaya.email, z3Post.id)
+        await usersController.addPost(zendaya.email, z4Post.id)
+
+        await usersController.addPost(marczynski.email, m1Post.id)
+        await usersController.addPost(marczynski.email, m2Post.id)
+        await usersController.addPost(marczynski.email, m3Post.id)
+
+        
+        await usersController.addPost(sergio.email, s1Post.id)
+        await usersController.addPost(sergio.email, s2Post.id)
+        await usersController.addPost(sergio.email, s3Post.id)
+
+        await usersController.addPost(hbo.email, h1Post.id)
+        await usersController.addPost(hbo.email, h2Post.id)
+        await usersController.addPost(hbo.email, h3Post.id)
+        
+        await usersController.addPost(grzegorz.email, g1Post.id)
+        await usersController.addPost(grzegorz.email, g2Post.id)
+        await usersController.addPost(grzegorz.email, g3Post.id)
+        await usersController.addPost(grzegorz.email, g4Post.id)
     }
 }
 

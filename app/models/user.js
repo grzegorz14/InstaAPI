@@ -10,7 +10,7 @@ class User {
         this.confirmed = false
         this.password = encryptedPassword
         this.profileImage = null
-        this.posts = []
+        this.posts = [] // array of posts id's
     }
 
     updateData(email, firstName, lastName) {

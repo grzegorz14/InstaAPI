@@ -5,7 +5,7 @@ const { Post, posts } = require("../models/post")
 const { SimpleUser } = require("../models/simpleUser")
 
 module.exports = {
-    createPost: (req, res, email) => {
+    createPostRequest: (req, res, email) => {
         return new Promise(async (resolve, reject) => {
             const user = await usersController.getUserByEmail(email)
             const simpleUser = new SimpleUser(user.id, user.firstName, user.lastName, user.email, user.profileImage)
@@ -13,7 +13,8 @@ module.exports = {
             const { dateNow, image, data } = await imageFileController.createImage(req, res, user.id)
             const dataObject = JSON.parse(data)
             const newPost = new Post(dateNow, simpleUser, image, dataObject.description, dataObject.location, dataObject.tags)
-            const success = await usersController.addPost(email, newPost)
+            const success = await usersController.addPost(email, newPost.id)
+            posts.push(newPost)
             resolve(newPost)
         })  
     },

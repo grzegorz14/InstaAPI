@@ -65,6 +65,27 @@ const router = async (req, res) => {
         }
         return
     }
+    // get all posts of user by id
+    else if (req.url.match(/\/api\/posts\/user\/([a-z0-9]+)/) && req.method == "GET") {
+        try {
+            const id = req.url.split("/").pop()
+            let posts = await postsController.getAllPostByUserId(id)
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Get posts of user with id: " + id,
+                    posts
+                ),
+                getCircularReplacer(), 5))
+        }
+        catch (err) {
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
+        }
+        return
+    }
     else if (req.url.match(/\/api\/posts\/([a-z0-9]+)/) && req.method == "DELETE") {
         try {
             const deleteId = req.url.split("/").pop()

@@ -25,6 +25,12 @@ module.exports = {
             resolve(posts)    
         })
     },
+    getAllPostByUserId: (id) => {
+        return new Promise((resolve, reject) => {
+            if (posts.filter(p => p.simpleUser.id == id).length == 0) reject("No posts found of user with given ID")
+            else resolve(posts.filter(p => p.simpleUser.id == id))
+        })
+    },
     getPostById: (id) => {
         return new Promise((resolve, reject) => {
             if (posts.filter(p => p.id == id).length == 0) reject("No post found with given ID")

@@ -14,13 +14,13 @@ module.exports = {
     },
     getTagById: (id) => {
         return new Promise((resolve, reject) => {
-            if (tags.filter(tag => tag.id == id).length == 0) reject("getTagById - no tag found with given ID.")
+            if (tags.filter(tag => tag.id == id).length == 0) reject("No tag found with given ID")
             else resolve(tags.filter(tag => tag.id == id)[0])
         })
     },
     getTagByName: (name) => {
         return new Promise((resolve, reject) => {
-            if (tags.filter(tag => tag.name == name).length == 0) reject("getTagByName - no tag found with given name.")
+            if (tags.filter(tag => tag.name == name).length == 0) reject("No tag found with given name")
             else resolve(tags.filter(tag => tag.name == name)[0])
         })
     },
@@ -69,7 +69,7 @@ module.exports = {
     getTagsOfPost: (postId) => {
         return new Promise((resolve, reject) => {
             if (posts.filter(p => p.id == postId).length == 0) {
-                resolve("DeletePost - no post found with given ID.")
+                resolve("No post found with given ID")
             }
             else {
                 let foundPost = posts.filter(p => p.id == postId)[0]

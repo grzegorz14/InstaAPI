@@ -112,7 +112,7 @@ module.exports = {
                     reject(String(err))
                 }
                 else {
-                    resolve({ "message": "Image deleted" })
+                    resolve("Image was deleted")
                 }
             })
         })
@@ -124,7 +124,7 @@ module.exports = {
                 resolve(image)
             }
             catch (err) {
-                reject(err.mesage)
+                reject(err.message)
             }
         })
     },
@@ -141,7 +141,7 @@ module.exports = {
                 }
             }
             catch (err) {
-                reject(err.mesage)
+                reject(err.message)
             }
         })
     },
@@ -153,7 +153,7 @@ module.exports = {
                 resolve(metadata)
             }
             catch (err) {
-                reject(err.mesage)
+                reject(err.message)
             }
         })
     }

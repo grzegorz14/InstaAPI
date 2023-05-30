@@ -8,31 +8,41 @@ const router = async (req, res) => {
         try {
             const id = req.url.split("/").pop()
             let metadata = imageFileController.getImageMetadataById(id)
-            if (metadata == null) {
-                res.writeHead(200, {"Content-Type": "text/plain"})
-                res.end(JSON.stringify({"message": "There is no image with given ID"}, null, 2))
-            }
-            else {
-                res.writeHead(200, {"Content-Type": "application/json"})
-                res.end(JSON.stringify(metadata, null, 5))
-            }
+            
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Get metadata of image with id: " + id,
+                    metadata   
+                ),
+                getCircularReplacer(), 5))
         } 
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }
     else if (req.url == "/api/filters" && req.method == "PATCH") {
         try {
             let body = await getRequestData(req)
             const imageAfterOperation = await filtersController.transformImage(body)
-            res.writeHead(200, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(imageAfterOperation, null, 5))
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Filter was applied to image",
+                    imageAfterOperation
+                ),
+                getCircularReplacer(), 5))
         } 
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }
 }
 

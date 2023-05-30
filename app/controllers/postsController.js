@@ -15,6 +15,8 @@ module.exports = {
             const newPost = new Post(dateNow, simpleUser, image, dataObject.description, dataObject.location, dataObject.tags)
             const success = await usersController.addPost(email, newPost.id)
             posts.push(newPost)
+
+            console.log("New post from user: " + email)
             resolve(newPost)
         })  
     },
@@ -25,7 +27,7 @@ module.exports = {
     },
     getPostById: (id) => {
         return new Promise((resolve, reject) => {
-            if (posts.filter(p => p.id == id).length == 0) reject("getPostById - no post found with given ID.")
+            if (posts.filter(p => p.id == id).length == 0) reject("No post found with given ID")
             else resolve(posts.filter(p => p.id == id)[0])
         })
     },
@@ -38,7 +40,7 @@ module.exports = {
                 resolve(deletedPost)
             } 
             else {
-                reject("deletePostById - no post found with given ID.")
+                reject("No post found with given ID")
             } 
         })
     },

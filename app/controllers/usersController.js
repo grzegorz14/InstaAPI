@@ -103,13 +103,13 @@ module.exports = {
     },   
     getUserById: (id) => {
         return new Promise((resolve, reject) => {
-            if (users.filter(u => u.id == id).length == 0) reject("getUserById - user with given id not found")
+            if (users.filter(u => u.id == id).length == 0) reject("User with given id not found")
             else resolve(users.filter(u => u.id == id)[0])
         })
     },
     getUserByEmail: (email) => {
         return new Promise((resolve, reject) => {
-            if (users.filter(u => u.email == email).length == 0) reject("getUserByEmail - user with given email not found")
+            if (users.filter(u => u.email == email).length == 0) reject("User with given email not found")
             else resolve(users.filter(u => u.email == email)[0])
         })
     },
@@ -169,7 +169,7 @@ module.exports = {
                 resolve(users[indexToUpdate])
             }
             else {
-                reject("updateUser - no user found with given id.")
+                reject("No user found with given id")
             }
         })
     },
@@ -183,7 +183,7 @@ module.exports = {
                 resolve(true)
             }
             else {
-                console.log("addPost - no user found with given email.")
+                console.log("No user found with given email")
                 resolve(false)
             }
         })
@@ -216,11 +216,11 @@ module.exports = {
                     resolve(deletedPostId)
                 } 
                 else {
-                    reject("deletePost - no ID found in posts array of given user.")
+                    reject("No ID found in posts array of given user")
                 }
             } 
             else {
-                reject("deletePost - no user found with given ID or user has no posts.")
+                reject("No user found with given ID or user has no posts")
             } 
         })
     }

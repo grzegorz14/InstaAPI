@@ -8,38 +8,40 @@ const router = async (req, res) => {
         try {
             let token = req.headers.authorization
             let email = await usersController.authorizeUser(token)
-            if (email == -1) {
-                res.writeHead(404, {"Content-Type": "text/plain"})
-                res.end("Authorization failed.")
-                return
-            }
 
             const newPost = await postsController.createPostRequest(req, res, email)
 
-            console.log("New post from user: " + email)
             res.writeHead(201, {"Content-Type": "application/json"})
             res.end(JSON.stringify(
-                {
-                    success: true,
-                    newPost: newPost
-                }, 
+                new ResponseWrapper(
+                    true, 
+                    "New post created",
+                    newPost
+                ),
                 getCircularReplacer(), 5))
         } 
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }
     else if (req.url == "/api/posts" && req.method == "GET") {
         try {
             let posts = await postsController.getAllPosts()
-            res.writeHead(200, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(posts, getCircularReplacer(), 5))
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Get all posts",
+                    posts
+                ),
+                getCircularReplacer(), 5))
         } 
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }
@@ -47,32 +49,39 @@ const router = async (req, res) => {
         try {
             const id = req.url.split("/").pop()
             let post = await postsController.getPostById(id)
-            if (post == null) {
-                res.writeHead(200, {"Content-Type": "text/plain"})
-                res.end(JSON.stringify({"message": "There is no post with given ID"}, null, 5))
-            }
-            else {
-                res.writeHead(200, {"Content-Type": "application/json"})
-                res.end(JSON.stringify(post, getCircularReplacer(), 5))
-            }
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Get posts with id: " + id,
+                    post
+                ),
+                getCircularReplacer(), 5))
         }
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }
     else if (req.url.match(/\/api\/posts\/([a-z0-9]+)/) && req.method == "DELETE") {
         try {
             const deleteId = req.url.split("/").pop()
-            let message = await postsController.deletePostById(deleteId)
+            let deletedPost = await postsController.deletePostById(deleteId)
 
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(message, null, 5))
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Post was deleted",
+                    deletedPost
+                ),
+                getCircularReplacer(), 5))
         } 
         catch (err) {
-            res.writeHead(404, {"Content-Type": "text/plain"})
-            res.end(String(err))
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }

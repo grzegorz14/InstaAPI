@@ -27,14 +27,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }
     else if (req.url.match(/\/api\/user\/confirm\/([A-Za-z0-9]+)/) && req.method == "GET") {
         try {
@@ -52,14 +47,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    "Activation unsucessuful. Token expired",
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, "Activation unsucessuful. Token expired", null), getCircularReplacer(), 5))
         }
+        return
     }
     else if (req.url == "/api/user/login" && req.method == "POST") {
         try {
@@ -76,14 +66,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     } 
     else if (req.url == "/api/user/logout" && req.method == "GET") {
         try {
@@ -101,13 +86,7 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }   
@@ -126,14 +105,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }
     else if (req.url == "/\/api\/getuser\/([A-Za-z0-9]+)/" && req.method == "GET") {
         try {
@@ -151,14 +125,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }
     else if (req.url == "/api/user/auth" && req.method == "POST") {
         try {
@@ -176,14 +145,9 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
+        return
     }   
     else if (req.url == "/api/user/profile" && req.method == "GET") {
         try {   
@@ -201,13 +165,7 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }
@@ -231,13 +189,7 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }
@@ -261,13 +213,7 @@ const router = async (req, res) => {
         } 
         catch (err) {
             res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    false, 
-                    err,
-                    null
-                ),
-                getCircularReplacer(), 5))
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
         }
         return
     }

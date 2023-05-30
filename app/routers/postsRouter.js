@@ -1,6 +1,8 @@
 const usersController = require("../controllers/usersController")
 const postsController = require("../controllers/postsController")
+
 const { getCircularReplacer } = require("../helpers/helpers")
+const { ResponseWrapper } = require("../models/responseWrapper")
 
 
 const router = async (req, res) => {
@@ -45,26 +47,6 @@ const router = async (req, res) => {
         }
         return
     }
-    else if (req.url.match(/\/api\/posts\/([a-z0-9]+)/) && req.method == "GET") {
-        try {
-            const id = req.url.split("/").pop()
-            let post = await postsController.getPostById(id)
-
-            res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(
-                new ResponseWrapper(
-                    true, 
-                    "Get posts with id: " + id,
-                    post
-                ),
-                getCircularReplacer(), 5))
-        }
-        catch (err) {
-            res.writeHead(201, {"Content-Type": "application/json"})
-            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
-        }
-        return
-    }
     // get all posts of user by id
     else if (req.url.match(/\/api\/posts\/user\/([a-z0-9]+)/) && req.method == "GET") {
         try {
@@ -77,6 +59,26 @@ const router = async (req, res) => {
                     true, 
                     "Get posts of user with id: " + id,
                     posts
+                ),
+                getCircularReplacer(), 5))
+        }
+        catch (err) {
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
+        }
+        return
+    }
+    else if (req.url.match(/\/api\/posts\/([a-z0-9]+)/) && req.method == "GET") {
+        try {
+            const id = req.url.split("/").pop()
+            let post = await postsController.getPostById(id)
+
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Get posts with id: " + id,
+                    post
                 ),
                 getCircularReplacer(), 5))
         }

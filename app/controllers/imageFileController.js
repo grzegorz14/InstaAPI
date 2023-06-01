@@ -90,6 +90,16 @@ module.exports = {
                 const dateNow = Date.now()
                 const newPath = albumDirPath + "profile_image" + "." + file.name.split(".").pop()
 
+                // delete last profile image
+                fs.unlink(newPath, (err) => {
+                    if (err) {
+                        console.log("First profile image uploaded. There is no profile_image to delete.")
+                    }
+                    else {
+                        console.log("Last profile_image was deleted.")
+                    }
+                })
+
                 fs.mkdir(albumDirPath, (err) => {
                     fs.rename(file.path, newPath, (err) => {
                         if (err) {
@@ -124,36 +134,31 @@ module.exports = {
                 resolve(image)
             }
             catch (err) {
-                reject(err.message)
+                reject(err)
             }
         })
     },
     getImageById: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                const imageObject = imageJsonController.getImageById(id)
-                if (imageObject == null) {
-                    resolve("Image with given ID not found")
-                }
-                else {
-                    let image = await sharp(".\\..\\..\\" + image.url).jpeg()
-                    resolve(image)
-                }
+                const imageObject = await imageJsonController.getJsonImageById(id)
+                let image = await sharp(".\\..\\..\\" + imageObject.url).jpeg()
+                resolve(image)
             }
             catch (err) {
-                reject(err.message)
+                reject(err)
             }
         })
     },
     getImageMetadataById: (id) => {
         return new Promise(async (resolve, reject) => {
             try {
-                let image = imageJsonController.getImageById(id)
+                let image = await imageJsonController.getJsonImageById(id)
                 let metadata = await sharp(image.url).metadata()
                 resolve(metadata)
             }
             catch (err) {
-                reject(err.message)
+                reject(err)
             }
         })
     }

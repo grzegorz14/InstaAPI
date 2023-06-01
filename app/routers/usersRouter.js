@@ -202,13 +202,14 @@ const router = async (req, res) => {
             let user = await usersController.getUserByEmail(email)
             const profileImage = await imageFileController.createProfileImage(req, res, user.id)
             const message = await usersController.addProfileImage(email, profileImage)
+            const userWithNewImage = await usersController.getUserByEmail(email)
 
             res.writeHead(201, {"Content-Type": "application/json"})
             res.end(JSON.stringify(
                 new ResponseWrapper(
                     true, 
                     "Profile image is uploaded",
-                    profileImage
+                    userWithNewImage
                 ),
                 getCircularReplacer(), 5))
         } 

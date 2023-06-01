@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/images HTTP/1.1
 
 ### GET - get by id
-GET http://localhost:3000/api/images/1684745324121 HTTP/1.1
+GET http://localhost:3000/api/images/1685617177056 HTTP/1.1
 
 ### DELETE - delete by id
 DELETE http://localhost:3000/api/images/1681894404250 HTTP/1.1

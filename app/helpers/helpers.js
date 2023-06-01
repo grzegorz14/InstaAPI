@@ -35,6 +35,19 @@ module.exports = {
             return value
         };
     },
+    parseFileExtensionToMime: (extension) => {
+        switch (extension) {
+            case "jpg":
+            case "jpeg":
+                return "image/jpeg"
+            case "mkv":
+                return "video/x-matroska"
+            case "mp4":
+                return "video/mp4"
+            default:
+                return "image/jpeg"
+        }
+    },
     setupInitalData: async () => {
         const zendaya = new User("Zendaya", "", "zendaya@gmail.com", "")
         const marczynski = new User("Tomasz", "Marczyński", "marczynski@yahoo.com", "")
@@ -202,6 +215,14 @@ module.exports = {
             "",
             ["hotd"],
             23)
+        const g5Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\ariana.mp4", Date.now()),
+            "Ariana Grande - 34 + 35 (Funkyman cover)",
+            "",
+            ["guitar"],
+            71)
 
         posts.push(
             z1Post,
@@ -224,7 +245,8 @@ module.exports = {
             g1Post,
             g2Post,
             g3Post,
-            g4Post
+            g4Post,
+            g5Post
         )
 
         await usersController.addPost(zendaya.email, z1Post.id)
@@ -249,6 +271,7 @@ module.exports = {
         await usersController.addPost(grzegorz.email, g2Post.id)
         await usersController.addPost(grzegorz.email, g3Post.id)
         await usersController.addPost(grzegorz.email, g4Post.id)
+        await usersController.addPost(grzegorz.email, g5Post.id)
     }
 }
 

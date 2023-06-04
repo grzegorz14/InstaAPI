@@ -12,13 +12,22 @@ class Image {
     }
 
     // after image edit operation (crop, tint...)
-    updateHistory(operation) {
+    updateHistory(operation, newUrl) {
         let now = Date.now()
         this.history.push({
             status: operation,
             timestamp: now
         })
         this.lastChange = now
+        this.url = newUrl
+    }
+
+    setBasicHistory() {
+        let now = Date.now()
+        this.history.push(new ImageHistory("original", now))
+        this.lastChange = now
+        const extension = this.url.split(".").pop()
+        this.url = "uploads\\" + this.album + "\\" + this.id + "." + extension
     }
 }
 

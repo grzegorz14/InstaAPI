@@ -30,7 +30,7 @@ module.exports = {
                 resolve(tags.filter(tag => tag.name == name)[0])
             }
             else {
-                let newTag = new Tag(name.name)
+                let newTag = new Tag(name)
                 tags.push(newTag)
                 resolve(newTag)
             }

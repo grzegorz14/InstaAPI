@@ -37,5 +37,17 @@ module.exports = {
                 reject("No image found with given ID")
             }
         })
+    },
+    setBasicImage: (id) => {
+        return new Promise((resolve, reject) => {
+            let indexToUpdate = images.findIndex(image => image.id == id)
+            if (indexToUpdate >= 0) {
+                images[indexToUpdate].setBasicHistory()
+                resolve(images[indexToUpdate])
+            }
+            else {
+                reject("No image found with given ID")
+            }
+        })
     }
 }

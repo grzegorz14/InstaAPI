@@ -110,7 +110,7 @@ const router = async (req, res) => {
         }
         return
     }
-    else if (req.url == "/\/api\/getuser\/([A-Za-z0-9]+)/" && req.method == "GET") {
+    else if (req.url.match(/\/api\/getuser\/([A-Za-z0-9]+)/) && req.method == "GET") {
         try {
             const id = req.url.split("/").pop()
             const user = await usersController.getUserById(id)

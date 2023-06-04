@@ -5,14 +5,15 @@ module.exports = {
     transformImage: (data) => {
         return new Promise(async (resolve, reject) => {
             try {
-                let image = imageJsonController.getJsonImageById(data.id)
+                let image = await imageJsonController.getJsonImageById(data.id)
+                
                 if (image == null) {  
                     reject("No image with given ID")
                 }
                 let pathArray = image.url.split("\\")
                 pathArray.pop()
                 let pathWithoutName = pathArray.join("\\")
-                let newUrl = pathWithoutName + "\\" + image.id + "_" + data.operation + ".jpg"
+                let newUrl = pathWithoutName + "\\" + image.id + "_" + data.operation + image.history.length + ".jpg"
 
                 let lastPath = __dirname + "\\..\\..\\" + image.url
                 let endPath = __dirname + "\\..\\..\\" + newUrl    
@@ -49,11 +50,11 @@ module.exports = {
                             .toFile(endPath)
                         break;
                 }
-                image.updateHistory(data.operation)
+                image.updateHistory(data.operation, newUrl)
                 resolve(image)
             }
             catch (err) {
-                reject(err.mesage)
+                reject(err)
             }
         })
     }

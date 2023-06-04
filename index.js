@@ -39,7 +39,7 @@ http.createServer(async (req, res) => {
     }
 
     //users router
-    else if (req.url.search("/api/user") != -1) {
+    else if (req.url.search("/api/user") != -1 || req.url.search("/api/getuser") != -1) {
         await usersRouter(req, res)
     }
 

@@ -42,7 +42,7 @@ module.exports = {
             let indexToDelete = posts.findIndex(p => p.id == id)
             if (indexToDelete >= 0) {
                 const deletedPost = posts.splice(indexToDelete, 1)[0]
-                const response = await usersController.deletePost(deletedPost.userEmail, deletedPost.id)
+                const response = await usersController.deletePost(deletedPost.simpleUser.email, deletedPost.id)
                 resolve(deletedPost)
             } 
             else {

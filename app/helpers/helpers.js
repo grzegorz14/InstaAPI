@@ -223,6 +223,14 @@ module.exports = {
             "",
             ["guitar"],
             71)
+        const g6Post = new Post(
+            Date.now(), 
+            SimpleUser.fromUser(await usersController.getUserByEmail(grzegorz.email)), 
+            new Image("initialGrzegorz", "", "uploads\\initialGrzegorz\\marigold.mp4", Date.now()),
+            "Periphery - Marigold",
+            "",
+            ["guitar", "metal"],
+            20)
 
         posts.push(
             z1Post,
@@ -246,7 +254,8 @@ module.exports = {
             g2Post,
             g3Post,
             g4Post,
-            g5Post
+            g5Post,
+            g6Post
         )
 
         await usersController.addPost(zendaya.email, z1Post.id)
@@ -272,6 +281,7 @@ module.exports = {
         await usersController.addPost(grzegorz.email, g3Post.id)
         await usersController.addPost(grzegorz.email, g4Post.id)
         await usersController.addPost(grzegorz.email, g5Post.id)
+        await usersController.addPost(grzegorz.email, g6Post.id)
     }
 }
 

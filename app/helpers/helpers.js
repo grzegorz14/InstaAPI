@@ -81,7 +81,8 @@ module.exports = {
             new Image("initialZendaya", "", "uploads\\initialZendaya\\z1.jpg", Date.now()),
             "session session session",
             "New York",
-            ["love", "city"], 
+            ["love", "city"],
+            "2021-04-13T17:09:42.411",
             35022)
         const z2Post = new Post(
             Date.now(), 
@@ -90,6 +91,7 @@ module.exports = {
             "",
             "",
             ["sunny", "holidays", "home"],
+            "2023-02-13T17:09:42.411",
             23743)
         const z3Post = new Post(
             Date.now(), 
@@ -98,6 +100,7 @@ module.exports = {
             "OMG! Dune part 1 is finally out! Can't wait to see the final effect in the cinema :)))",
             "",
             ["dune", "acting", "herbert"],
+            "2022-04-13T17:09:42.411",
             11943)
         const z4Post = new Post(
             Date.now(), 
@@ -106,6 +109,7 @@ module.exports = {
             "Meet Jules :)",
             "London",
             ["friends"],
+            "2023-06-05T17:09:42.411",
             8447)
 
         const m1Post = new Post(
@@ -115,6 +119,7 @@ module.exports = {
             "This S-WORKS is extremely stiff! And it looks gorgeous...",
             "",
             ["cycling", "photography"],
+            "2023-06-11T17:09:42.411",
             147)
         const m2Post = new Post(
             Date.now(), 
@@ -123,6 +128,7 @@ module.exports = {
             "Pinarello Dogma F in the most beautiful color option",
             "Italy",
             ["cycling"],
+            "2023-06-01T17:09:42.411",
             64)
         const m3Post = new Post(
             Date.now(), 
@@ -131,6 +137,7 @@ module.exports = {
             "TIME MACHINE 01:00:00",
             "Kraków",
             ["cycling"],
+            "2023-05-05T17:09:42.411",
             23)
 
         const s1Post = new Post(
@@ -140,6 +147,7 @@ module.exports = {
             "For sell only for 1000$ :)",
             "Essen, Germany",
             ["painting", "art"],
+            "2023-03-05T17:09:42.411",
             637)
         const s2Post = new Post(
             Date.now(), 
@@ -148,6 +156,7 @@ module.exports = {
             "Any tips what to do better?",
             "Essen, Germany",
             [],
+            "2022-06-05T17:09:42.411",
             978)
         const s3Post = new Post(
             Date.now(), 
@@ -156,6 +165,7 @@ module.exports = {
             "5 hours of hard work",
             "Alicante, Spain",
             ["painting"],
+            "2023-06-10T17:09:42.411",
             156)
 
         const h1Post = new Post(
@@ -165,6 +175,7 @@ module.exports = {
             "Can't wait? It's worth waiting for...",
             "",
             ["dune"],
+            "2023-06-10T17:09:42.411",
             7544)
         const h2Post = new Post(
             Date.now(), 
@@ -173,6 +184,7 @@ module.exports = {
             "With extraordinary music of Labrinth, check it out on Spotify",
             "",
             ["euphoria"],
+            "2023-06-11T17:09:42.411",
             3523)
         const h3Post = new Post(
             Date.now(), 
@@ -181,6 +193,7 @@ module.exports = {
             "TOMORROW 17:00",
             "",
             ["hotd"],
+            "2023-06-08T17:09:42.411",
             16)
         
         const g1Post = new Post(
@@ -190,6 +203,7 @@ module.exports = {
             "",
             "",
             [""],
+            "2023-06-11T17:09:42.411",
             6)
         const g2Post = new Post(
             Date.now(), 
@@ -198,6 +212,7 @@ module.exports = {
             "",
             "London",
             ["travel"],
+            "2023-06-02T17:09:42.411",
             8)
         const g3Post = new Post(
             Date.now(), 
@@ -206,6 +221,7 @@ module.exports = {
             "Życiówka! 49:50 na 10km",
             "Kraków",
             ["running"],
+            "2021-06-10T17:09:42.411",
             28)
         const g4Post = new Post(
             Date.now(), 
@@ -214,6 +230,7 @@ module.exports = {
             "",
             "",
             ["hotd"],
+            "2023-04-10T17:09:42.411",
             23)
         const g5Post = new Post(
             Date.now(), 
@@ -222,6 +239,7 @@ module.exports = {
             "Ariana Grande - 34 + 35 (Funkyman cover)",
             "",
             ["guitar"],
+            "2023-02-10T17:09:42.411",
             71)
         const g6Post = new Post(
             Date.now(), 
@@ -230,6 +248,7 @@ module.exports = {
             "Periphery - Marigold",
             "",
             ["guitar", "metal"],
+            "2022-06-10T17:09:42.411",
             20)
 
         posts.push(

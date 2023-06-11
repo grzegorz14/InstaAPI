@@ -12,7 +12,7 @@ module.exports = {
 
             const { dateNow, image, data } = await imageFileController.createImage(req, res, user.id)
             const dataObject = JSON.parse(data)
-            const newPost = new Post(dateNow, simpleUser, image, dataObject.description, dataObject.location, dataObject.tags)
+            const newPost = new Post(dateNow, simpleUser, image, dataObject.description, dataObject.location, dataObject.tags, dataObject.date)
             const success = await usersController.addPost(email, newPost.id)
             posts.push(newPost)
 
@@ -50,4 +50,18 @@ module.exports = {
             } 
         })
     },
+    updatePost: (id, newDescription, newLocation, newTags) => {
+        return new Promise(async (resolve, reject) => {
+            let indexToUpdate = posts.findIndex(p => p.id == id)
+            if (indexToUpdate >= 0) {
+                posts[indexToUpdate].updateData(newDescription, newLocation, newTags)
+                
+                console.log("Post data is updated")
+                resolve(posts[indexToUpdate])
+            }
+            else {
+                reject("No post found with given id")
+            }
+        })
+    }
 }

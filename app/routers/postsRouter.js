@@ -1,7 +1,7 @@
 const usersController = require("../controllers/usersController")
 const postsController = require("../controllers/postsController")
 
-const { getCircularReplacer } = require("../helpers/helpers")
+const { getRequestData, getCircularReplacer } = require("../helpers/helpers")
 const { ResponseWrapper } = require("../models/responseWrapper")
 
 
@@ -99,6 +99,29 @@ const router = async (req, res) => {
                     true, 
                     "Post was deleted",
                     deletedPost
+                ),
+                getCircularReplacer(), 5))
+        } 
+        catch (err) {
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(new ResponseWrapper(false, err, null), getCircularReplacer(), 5))
+        }
+        return
+    }
+    else if (req.url == "/api/posts"  && req.method == "PATCH") {
+        try {
+            let token = req.headers.authorization
+            let email = await usersController.authorizeUser(token)
+
+            let body = await getRequestData(req)
+            let updatedPost = await postsController.updatePost(body.id, body.description, body.location, body.tags)
+            
+            res.writeHead(201, {"Content-Type": "application/json"})
+            res.end(JSON.stringify(
+                new ResponseWrapper(
+                    true, 
+                    "Post data is updated",
+                    updatedPost
                 ),
                 getCircularReplacer(), 5))
         } 

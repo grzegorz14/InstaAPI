@@ -1,7 +1,7 @@
 ### POST - send new post
 POST http://localhost:3000/api/posts HTTP/1.1
 Content-Type: multipart/form-data; boundary=----FormBoundary1234
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NTM0MTY0MzUyOSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NTM0MTY1MiwiZXhwIjoxNjg1NDI4MDUyfQ.OF9qiAoTAX8GG_O5mXS_uRJ8LzoSY2N7g6j_BJ4vMYE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjUxNDE0MDg2NSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NjUxNDE0MSwiZXhwIjoxNjg2NjAwNTQxfQ.YThccY5b5bxJ_5Uem5-ti9FGbn_yEQW_Vb1sLQRGLyk
 
 ------FormBoundary1234
 Content-Disposition: form-data; name="file"; filename="testInput.jpg"
@@ -16,7 +16,8 @@ Content-Type: application/json
 {
     "description": "What a beautiful place :)",
     "location": "Madrit",
-    "tags": ["insta", "food", "travel"]
+    "tags": ["insta", "food", "travel"],
+    "date": ""
 }
 ------FormBoundary1234
 
@@ -28,3 +29,15 @@ GET http://localhost:3000/api/posts/1685341684559 HTTP/1.1
 
 ### DELETE - delete by id
 DELETE http://localhost:3000/api/posts/1684771834317 HTTP/1.1
+
+### PATCH - update post
+PATCH http://localhost:3000/api/posts HTTP/1.1
+Content-Type: "application/json"
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4NjUxNDE0MDg2NSwiZW1haWwiOiJncnplZ29yenN6ZXdjenlrQGdtYWlsLmNvbSIsImlhdCI6MTY4NjUxNDE0MSwiZXhwIjoxNjg2NjAwNTQxfQ.YThccY5b5bxJ_5Uem5-ti9FGbn_yEQW_Vb1sLQRGLyk
+
+{
+    "id": 1686514154865,
+    "description": "First time here!",
+    "location": "Rome",
+    "tags": ["sculptures", "architecture", "travel"]
+}

@@ -1,6 +1,6 @@
 # Insta API Node.js
 
-This API is used by InstaClient android app. It's a server written in basic Node.js without express.
+This API is used by InstaClient android app (in my repos). It's a server written in basic Node.js without express.
 
 Models on server:
 - user (password is hashed and token is needed to confirm account and authorize requests)
